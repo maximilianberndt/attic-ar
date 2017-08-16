@@ -35,60 +35,7 @@
 	// Datenbank Abfrage
 	// Funktioniert nur wenn mit Devnet im SD Gebäude verbunden
 	
-	<?php
-	/*
-	  $data = [];
-	  $addData = [];
-
-	  $host = "192.168.0.150";
-	  $username = "root";
-	  $password = "";
-	  $dbname = "dachboden";
-
-	  //
-	  //   Nur Daten mit aktuellem Datum abfragen
-	  //
-	  //$date = date('Y-m-d',strtotime("-1 days"));
-	  $date = date('Y-m-d');
-	  $startZeit = $date."T00:00:00.000Z";
-	  $endZeit = $date."T23:59:59.000Z";
-	  $abfrage = 'SELECT * FROM arduino_sound WHERE upload_date >= "'.$startZeit.'" AND upload_date <= "'.$endZeit.'"';
-
-	  // Create connection
-	  $conn = mysqli_connect($host, $username, $password, $dbname);
-	  // Check connection
-	  if (!$conn) {
-	      die("Connection failed: " . mysqli_connect_error());
-	  }
-
-	  $sql = $abfrage;
-	  $result = mysqli_query($conn, $sql);
-
-	  if (mysqli_num_rows($result) > 0) {
-	      // output data of each row
-	      while($row = mysqli_fetch_assoc($result)) {
-
-	        $addData = array (
-	          "id" => $row["id"],
-	          "m1_average" => $row["m1_average"],
-	          "m1_peek" => $row["m1_peek"],
-	          "m1_btn" => $row["m1_btn"],
-	          "m1_tmp" => $row["m1_tmp"],
-	          "upload_date" => $row["upload_date"],
-	        );
-
-	        array_push($data, $addData);
-
-	      }
-	  } else {
-	      echo "0 results";
-	  }
-
-	  echo 'var data = ' . json_encode($data) . ';';
-
-	  mysqli_close($conn);
-	  */
-	?>
+	
 	
 
 	//Lokale Daten anzeigen
