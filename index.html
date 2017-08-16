@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<!-- jQuery -->
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<!-- jQuery CSV loader -->
+	<script src='js/jquery.csv.min.js'></script>
+	<!-- three.js library -->
+	<script src='js/three.min.js'></script>
+	<!-- ar.js -->
+	<script src="three.js/build/ar.js"></script>
+	<!-- Stats -->
+	<script src="js/stats.js"></script>
+	<!-- Style -->
+	<link rel="stylesheet" href="style.css">
+
+	<title>Ar Datenvisualisierung</title>
+
+	<script>THREEx.ArToolkitContext.baseURL = '/three.js'</script>
+</head>
+
+
+<body>
+	<!--div id="preloader"></div-->
+	<div id="headline">
+		<h1>Attic</h1>
+	</div>
+
+<script>
+	//////////////////////////////////////////////////////////////////////////////////
+	//		Load Data
+	//////////////////////////////////////////////////////////////////////////////////
+
+	// Datenbank Abfrage
+	// Funktioniert nur wenn mit Devnet im SD Gebäude verbunden
+	
+	<?php
+	/*
+	  $data = [];
+	  $addData = [];
+
+	  $host = "192.168.0.150";
+	  $username = "root";
+	  $password = "";
+	  $dbname = "dachboden";
+
+	  //
+	  //   Nur Daten mit aktuellem Datum abfragen
+	  //
+	  //$date = date('Y-m-d',strtotime("-1 days"));
+	  $date = date('Y-m-d');
+	  $startZeit = $date."T00:00:00.000Z";
+	  $endZeit = $date."T23:59:59.000Z";
+	  $abfrage = 'SELECT * FROM arduino_sound WHERE upload_date >= "'.$startZeit.'" AND upload_date <= "'.$endZeit.'"';
+
+	  // Create connection
+	  $conn = mysqli_connect($host, $username, $password, $dbname);
+	  // Check connection
+	  if (!$conn) {
+	      die("Connection failed: " . mysqli_connect_error());
+	  }
+
+	  $sql = $abfrage;
+	  $result = mysqli_query($conn, $sql);
+
+	  if (mysqli_num_rows($result) > 0) {
+	      // output data of each row
+	      while($row = mysqli_fetch_assoc($result)) {
+
+	        $addData = array (
+	          "id" => $row["id"],
+	          "m1_average" => $row["m1_average"],
+	          "m1_peek" => $row["m1_peek"],
+	          "m1_btn" => $row["m1_btn"],
+	          "m1_tmp" => $row["m1_tmp"],
+	          "upload_date" => $row["upload_date"],
+	        );
+
+	        array_push($data, $addData);
+
+	      }
+	  } else {
+	      echo "0 results";
+	  }
+
+	  echo 'var data = ' . json_encode($data) . ';';
+
+	  mysqli_close($conn);
+	  */
+	?>
+	
+
+	//Lokale Daten anzeigen
+	//Daten vom 15.08.217 bis 13:16
+	var o = 
+	[
+		{"id":8160,"m1_average":1.31,"m1_peek":6,"m1_btn":42,"m1_tmp":38.95,"upload_date":"2017-08-15 00:00:33"},
+		{"id":8161,"m1_average":0.64,"m1_peek":2,"m1_btn":42,"m1_tmp":38.95,"upload_date":"2017-08-15 00:02:33"},
+		{"id":8162,"m1_average":0.69,"m1_peek":2,"m1_btn":42,"m1_tmp":39.27,"upload_date":"2017-08-15 00:04:33"},
+		{"id":8163,"m1_average":0.61,"m1_peek":2,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 00:06:33"},
+		{"id":8164,"m1_average":0.68,"m1_peek":2,"m1_btn":42,"m1_tmp":38.95,"upload_date":"2017-08-15 00:08:33"},
+		{"id":8165,"m1_average":0.6,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 00:10:33"},
+		{"id":8166,"m1_average":0.56,"m1_peek":2,"m1_btn":42,"m1_tmp":38.95,"upload_date":"2017-08-15 00:12:33"},
+		{"id":8167,"m1_average":0.69,"m1_peek":2,"m1_btn":43,"m1_tmp":38.95,"upload_date":"2017-08-15 00:14:33"},
+		{"id":8168,"m1_average":0.53,"m1_peek":2,"m1_btn":43,"m1_tmp":38.95,"upload_date":"2017-08-15 00:16:33"},
+		{"id":8169,"m1_average":0.59,"m1_peek":2,"m1_btn":43,"m1_tmp":38.95,"upload_date":"2017-08-15 00:18:33"},
+		{"id":8170,"m1_average":0.64,"m1_peek":2,"m1_btn":43,"m1_tmp":38.95,"upload_date":"2017-08-15 00:20:33"},
+		{"id":8171,"m1_average":0.59,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 00:22:33"},
+		{"id":8172,"m1_average":0.64,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 00:24:33"},
+		{"id":8173,"m1_average":0.75,"m1_peek":2,"m1_btn":42,"m1_tmp":38.95,"upload_date":"2017-08-15 00:26:34"},
+		{"id":8174,"m1_average":0.68,"m1_peek":4,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 00:28:34"},
+		{"id":8175,"m1_average":0.62,"m1_peek":2,"m1_btn":43,"m1_tmp":38.95,"upload_date":"2017-08-15 00:30:34"},
+		{"id":8176,"m1_average":0.64,"m1_peek":1,"m1_btn":43,"m1_tmp":39.27,"upload_date":"2017-08-15 00:32:34"},
+		{"id":8177,"m1_average":0.61,"m1_peek":2,"m1_btn":43,"m1_tmp":38.95,"upload_date":"2017-08-15 00:34:34"},
+		{"id":8178,"m1_average":0.62,"m1_peek":2,"m1_btn":43,"m1_tmp":38.95,"upload_date":"2017-08-15 00:36:34"},
+		{"id":8179,"m1_average":0.65,"m1_peek":2,"m1_btn":43,"m1_tmp":38.95,"upload_date":"2017-08-15 00:38:34"},
+		{"id":8180,"m1_average":0.66,"m1_peek":2,"m1_btn":43,"m1_tmp":38.95,"upload_date":"2017-08-15 00:40:34"},
+		{"id":8181,"m1_average":0.71,"m1_peek":2,"m1_btn":42,"m1_tmp":38.95,"upload_date":"2017-08-15 00:42:34"},
+		{"id":8182,"m1_average":0.73,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 00:44:34"},
+		{"id":8183,"m1_average":0.83,"m1_peek":2,"m1_btn":42,"m1_tmp":38.95,"upload_date":"2017-08-15 00:46:34"},
+		{"id":8184,"m1_average":0.78,"m1_peek":4,"m1_btn":43,"m1_tmp":38.95,"upload_date":"2017-08-15 00:48:34"},
+		{"id":8185,"m1_average":0.88,"m1_peek":4,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 00:50:34"},
+		{"id":8186,"m1_average":0.75,"m1_peek":2,"m1_btn":43,"m1_tmp":38.95,"upload_date":"2017-08-15 00:52:34"},
+		{"id":8187,"m1_average":0.73,"m1_peek":2,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 00:54:34"},
+		{"id":8188,"m1_average":0.74,"m1_peek":2,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 00:56:34"},
+		{"id":8189,"m1_average":0.66,"m1_peek":2,"m1_btn":43,"m1_tmp":38.95,"upload_date":"2017-08-15 00:58:34"},
+		{"id":8190,"m1_average":0.58,"m1_peek":2,"m1_btn":43,"m1_tmp":38.95,"upload_date":"2017-08-15 01:00:34"},
+		{"id":8191,"m1_average":0.77,"m1_peek":2,"m1_btn":43,"m1_tmp":38.95,"upload_date":"2017-08-15 01:02:34"},
+		{"id":8192,"m1_average":0.66,"m1_peek":10,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 01:04:34"},
+		{"id":8193,"m1_average":0.74,"m1_peek":2,"m1_btn":43,"m1_tmp":38.95,"upload_date":"2017-08-15 01:06:34"},
+		{"id":8194,"m1_average":0.76,"m1_peek":3,"m1_btn":42,"m1_tmp":38.95,"upload_date":"2017-08-15 01:08:34"},
+		{"id":8195,"m1_average":0.85,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 01:10:35"},
+		{"id":8196,"m1_average":0.79,"m1_peek":3,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 01:12:35"},
+		{"id":8197,"m1_average":0.69,"m1_peek":2,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 01:14:35"},
+		{"id":8198,"m1_average":0.69,"m1_peek":7,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 01:16:35"},
+		{"id":8199,"m1_average":0.64,"m1_peek":2,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 01:18:35"},
+		{"id":8200,"m1_average":0.7,"m1_peek":2,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 01:20:35"},
+		{"id":8201,"m1_average":0.69,"m1_peek":2,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 01:22:35"},
+		{"id":8202,"m1_average":0.7,"m1_peek":2,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 01:24:35"},
+		{"id":8203,"m1_average":0.66,"m1_peek":1,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 01:26:35"},
+		{"id":8204,"m1_average":0.65,"m1_peek":1,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 01:28:35"},
+		{"id":8205,"m1_average":0.66,"m1_peek":2,"m1_btn":42,"m1_tmp":38.95,"upload_date":"2017-08-15 01:30:35"},
+		{"id":8206,"m1_average":0.62,"m1_peek":2,"m1_btn":42,"m1_tmp":38.95,"upload_date":"2017-08-15 01:32:35"},
+		{"id":8207,"m1_average":0.64,"m1_peek":2,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 01:34:35"},
+		{"id":8208,"m1_average":0.55,"m1_peek":3,"m1_btn":42,"m1_tmp":38.95,"upload_date":"2017-08-15 01:36:35"},
+		{"id":8209,"m1_average":0.58,"m1_peek":2,"m1_btn":43,"m1_tmp":38.95,"upload_date":"2017-08-15 01:38:35"},
+		{"id":8210,"m1_average":0.71,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 01:40:35"},
+		{"id":8211,"m1_average":0.57,"m1_peek":1,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 01:42:35"},
+		{"id":8212,"m1_average":0.65,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 01:44:35"},
+		{"id":8213,"m1_average":0.74,"m1_peek":2,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 01:46:35"},
+		{"id":8214,"m1_average":0.81,"m1_peek":2,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 01:48:35"},
+		{"id":8215,"m1_average":0.86,"m1_peek":2,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 01:50:35"},
+		{"id":8216,"m1_average":0.78,"m1_peek":5,"m1_btn":42,"m1_tmp":38.95,"upload_date":"2017-08-15 01:52:35"},
+		{"id":8217,"m1_average":0.79,"m1_peek":2,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 01:54:36"},
+		{"id":8218,"m1_average":0.65,"m1_peek":2,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 01:56:36"},
+		{"id":8219,"m1_average":0.73,"m1_peek":2,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 01:58:36"},
+		{"id":8220,"m1_average":0.67,"m1_peek":2,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 02:00:36"},
+		{"id":8221,"m1_average":0.7,"m1_peek":2,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 02:02:36"},
+		{"id":8222,"m1_average":0.71,"m1_peek":2,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 02:04:36"},
+		{"id":8223,"m1_average":0.57,"m1_peek":1,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 02:06:36"},
+		{"id":8224,"m1_average":0.7,"m1_peek":2,"m1_btn":42,"m1_tmp":38.3,"upload_date":"2017-08-15 02:08:36"},
+		{"id":8225,"m1_average":0.55,"m1_peek":1,"m1_btn":42,"m1_tmp":38.3,"upload_date":"2017-08-15 02:10:36"},
+		{"id":8226,"m1_average":0.62,"m1_peek":2,"m1_btn":42,"m1_tmp":38.3,"upload_date":"2017-08-15 02:12:36"},
+		{"id":8227,"m1_average":0.63,"m1_peek":2,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 02:14:36"},
+		{"id":8228,"m1_average":0.6,"m1_peek":1,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 02:16:36"},
+		{"id":8229,"m1_average":0.59,"m1_peek":2,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 02:18:36"},
+		{"id":8230,"m1_average":0.59,"m1_peek":2,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 02:20:36"},
+		{"id":8231,"m1_average":0.65,"m1_peek":2,"m1_btn":42,"m1_tmp":38.3,"upload_date":"2017-08-15 02:22:36"},
+		{"id":8232,"m1_average":0.43,"m1_peek":1,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 02:24:36"},
+		{"id":8233,"m1_average":0.65,"m1_peek":3,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 02:26:36"},
+		{"id":8234,"m1_average":0.57,"m1_peek":2,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 02:28:36"},
+		{"id":8235,"m1_average":0.53,"m1_peek":1,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 02:30:37"},
+		{"id":8236,"m1_average":0.55,"m1_peek":1,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 02:32:37"},
+		{"id":8237,"m1_average":0.72,"m1_peek":2,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 02:34:37"},
+		{"id":8238,"m1_average":0.6,"m1_peek":2,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 02:36:37"},
+		{"id":8239,"m1_average":0.57,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 02:38:37"},
+		{"id":8240,"m1_average":0.63,"m1_peek":2,"m1_btn":42,"m1_tmp":38.95,"upload_date":"2017-08-15 02:40:37"},
+		{"id":8241,"m1_average":0.66,"m1_peek":2,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 02:42:37"},
+		{"id":8242,"m1_average":0.61,"m1_peek":1,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 02:44:37"},
+		{"id":8243,"m1_average":0.53,"m1_peek":2,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 02:46:37"},
+		{"id":8244,"m1_average":0.53,"m1_peek":2,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 02:48:37"},
+		{"id":8245,"m1_average":0.58,"m1_peek":2,"m1_btn":43,"m1_tmp":38.95,"upload_date":"2017-08-15 02:50:37"},
+		{"id":8246,"m1_average":0.58,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 02:52:37"},
+		{"id":8247,"m1_average":0.63,"m1_peek":2,"m1_btn":43,"m1_tmp":38.3,"upload_date":"2017-08-15 02:54:37"},
+		{"id":8248,"m1_average":0.54,"m1_peek":2,"m1_btn":43,"m1_tmp":38.3,"upload_date":"2017-08-15 02:56:38"},
+		{"id":8249,"m1_average":0.53,"m1_peek":2,"m1_btn":42,"m1_tmp":38.3,"upload_date":"2017-08-15 02:58:38"},
+		{"id":8250,"m1_average":0.6,"m1_peek":2,"m1_btn":42,"m1_tmp":38.3,"upload_date":"2017-08-15 03:00:38"},
+		{"id":8251,"m1_average":0.59,"m1_peek":2,"m1_btn":43,"m1_tmp":38.3,"upload_date":"2017-08-15 03:02:38"},
+		{"id":8252,"m1_average":0.47,"m1_peek":1,"m1_btn":42,"m1_tmp":38.3,"upload_date":"2017-08-15 03:04:38"},
+		{"id":8253,"m1_average":0.47,"m1_peek":1,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 03:06:38"},
+		{"id":8254,"m1_average":0.47,"m1_peek":2,"m1_btn":43,"m1_tmp":38.3,"upload_date":"2017-08-15 03:08:38"},
+		{"id":8255,"m1_average":0.62,"m1_peek":2,"m1_btn":42,"m1_tmp":38.62,"upload_date":"2017-08-15 03:10:38"},
+		{"id":8256,"m1_average":0.74,"m1_peek":2,"m1_btn":43,"m1_tmp":38.3,"upload_date":"2017-08-15 03:12:38"},
+		{"id":8257,"m1_average":0.63,"m1_peek":3,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 03:14:38"},
+		{"id":8258,"m1_average":0.59,"m1_peek":5,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 03:16:38"},
+		{"id":8259,"m1_average":0.58,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 03:18:38"},
+		{"id":8260,"m1_average":0.56,"m1_peek":1,"m1_btn":43,"m1_tmp":38.3,"upload_date":"2017-08-15 03:20:39"},
+		{"id":8261,"m1_average":0.63,"m1_peek":1,"m1_btn":43,"m1_tmp":38.3,"upload_date":"2017-08-15 03:22:39"},
+		{"id":8262,"m1_average":0.74,"m1_peek":12,"m1_btn":43,"m1_tmp":38.3,"upload_date":"2017-08-15 03:24:40"},
+		{"id":8263,"m1_average":0.69,"m1_peek":2,"m1_btn":43,"m1_tmp":38.3,"upload_date":"2017-08-15 03:26:40"},
+		{"id":8264,"m1_average":0.74,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 03:28:40"},
+		{"id":8265,"m1_average":0.91,"m1_peek":2,"m1_btn":43,"m1_tmp":38.3,"upload_date":"2017-08-15 03:30:40"},
+		{"id":8266,"m1_average":0.84,"m1_peek":2,"m1_btn":43,"m1_tmp":38.95,"upload_date":"2017-08-15 03:32:40"},
+		{"id":8267,"m1_average":0.75,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 03:34:40"},
+		{"id":8268,"m1_average":0.83,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 03:36:40"},
+		{"id":8269,"m1_average":0.75,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 03:38:40"},
+		{"id":8270,"m1_average":0.74,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 03:40:40"},
+		{"id":8271,"m1_average":0.8,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 03:42:40"},
+		{"id":8272,"m1_average":0.71,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 03:44:40"},
+		{"id":8273,"m1_average":0.7,"m1_peek":6,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 03:46:40"},
+		{"id":8274,"m1_average":0.6,"m1_peek":2,"m1_btn":43,"m1_tmp":38.95,"upload_date":"2017-08-15 03:48:41"},
+		{"id":8275,"m1_average":0.7,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 03:50:41"},
+		{"id":8276,"m1_average":0.68,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 03:52:41"},
+		{"id":8277,"m1_average":0.62,"m1_peek":10,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 03:54:41"},
+		{"id":8278,"m1_average":0.72,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 03:56:41"},
+		{"id":8279,"m1_average":0.66,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 03:58:41"},
+		{"id":8280,"m1_average":0.77,"m1_peek":2,"m1_btn":43,"m1_tmp":38.3,"upload_date":"2017-08-15 04:00:41"},
+		{"id":8281,"m1_average":0.72,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 04:02:41"},
+		{"id":8282,"m1_average":0.72,"m1_peek":12,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 04:04:41"},
+		{"id":8283,"m1_average":0.61,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 04:06:41"},
+		{"id":8284,"m1_average":0.64,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 04:08:41"},
+		{"id":8285,"m1_average":0.63,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 04:10:41"},
+		{"id":8286,"m1_average":0.66,"m1_peek":5,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 04:12:41"},
+		{"id":8287,"m1_average":0.72,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 04:14:41"},
+		{"id":8288,"m1_average":0.68,"m1_peek":2,"m1_btn":43,"m1_tmp":38.3,"upload_date":"2017-08-15 04:16:41"},
+		{"id":8289,"m1_average":0.75,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 04:18:41"},
+		{"id":8290,"m1_average":0.78,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 04:20:41"},
+		{"id":8291,"m1_average":0.75,"m1_peek":7,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 04:22:42"},
+		{"id":8292,"m1_average":0.83,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 04:24:42"},
+		{"id":8293,"m1_average":0.81,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 04:26:42"},
+		{"id":8294,"m1_average":0.83,"m1_peek":3,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 04:28:42"},
+		{"id":8295,"m1_average":0.78,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 04:30:42"},
+		{"id":8296,"m1_average":0.77,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 04:32:42"},
+		{"id":8297,"m1_average":0.7,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 04:34:42"},
+		{"id":8298,"m1_average":0.76,"m1_peek":2,"m1_btn":43,"m1_tmp":38.3,"upload_date":"2017-08-15 04:36:42"},
+		{"id":8299,"m1_average":0.72,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 04:38:42"},
+		{"id":8300,"m1_average":0.8,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 04:40:42"},
+		{"id":8301,"m1_average":0.71,"m1_peek":2,"m1_btn":43,"m1_tmp":38.3,"upload_date":"2017-08-15 04:42:42"},
+		{"id":8302,"m1_average":0.8,"m1_peek":2,"m1_btn":42,"m1_tmp":38.3,"upload_date":"2017-08-15 04:44:42"},
+		{"id":8303,"m1_average":0.85,"m1_peek":3,"m1_btn":43,"m1_tmp":38.3,"upload_date":"2017-08-15 04:46:42"},
+		{"id":8304,"m1_average":0.93,"m1_peek":10,"m1_btn":43,"m1_tmp":38.3,"upload_date":"2017-08-15 04:48:42"},
+		{"id":8305,"m1_average":0.93,"m1_peek":2,"m1_btn":43,"m1_tmp":38.62,"upload_date":"2017-08-15 04:50:42"},
+		{"id":8306,"m1_average":1.01,"m1_peek":3,"m1_btn":42,"m1_tmp":38.3,"upload_date":"2017-08-15 04:52:42"},
+		{"id":8307,"m1_average":0.92,"m1_peek":5,"m1_btn":43,"m1_tmp":38.3,"upload_date":"2017-08-15 04:54:42"},
+		{"id":8308,"m1_average":0.89,"m1_peek":3,"m1_btn":43,"m1_tmp":38.3,"upload_date":"2017-08-15 04:56:42"},
+		{"id":8309,"m1_average":0.97,"m1_peek":9,"m1_btn":43,"m1_tmp":38.3,"upload_date":"2017-08-15 04:58:42"},
+		{"id":8310,"m1_average":0.74,"m1_peek":2,"m1_btn":42,"m1_tmp":38.3,"upload_date":"2017-08-15 05:00:42"},
+		{"id":8311,"m1_average":0.74,"m1_peek":2,"m1_btn":42,"m1_tmp":38.3,"upload_date":"2017-08-15 05:02:43"},
+		{"id":8312,"m1_average":0.82,"m1_peek":4,"m1_btn":42,"m1_tmp":38.3,"upload_date":"2017-08-15 05:04:43"},
+		{"id":8313,"m1_average":0.83,"m1_peek":2,"m1_btn":42,"m1_tmp":38.3,"upload_date":"2017-08-15 05:06:43"},
+		{"id":8314,"m1_average":0.77,"m1_peek":7,"m1_btn":43,"m1_tmp":38.3,"upload_date":"2017-08-15 05:08:43"},
+		{"id":8315,"m1_average":0.89,"m1_peek":2,"m1_btn":42,"m1_tmp":38.3,"upload_date":"2017-08-15 05:10:43"},
+		{"id":8316,"m1_average":0.92,"m1_peek":3,"m1_btn":43,"m1_tmp":37.98,"upload_date":"2017-08-15 05:12:43"},
+		{"id":8317,"m1_average":1.1,"m1_peek":4,"m1_btn":42,"m1_tmp":38.3,"upload_date":"2017-08-15 05:14:43"},
+		{"id":8318,"m1_average":1.13,"m1_peek":4,"m1_btn":43,"m1_tmp":37.98,"upload_date":"2017-08-15 05:16:43"},
+		{"id":8319,"m1_average":0.93,"m1_peek":5,"m1_btn":43,"m1_tmp":38.3,"upload_date":"2017-08-15 05:18:43"},
+		{"id":8320,"m1_average":0.9,"m1_peek":9,"m1_btn":43,"m1_tmp":38.3,"upload_date":"2017-08-15 05:20:43"},
+		{"id":8321,"m1_average":1.48,"m1_peek":8,"m1_btn":43,"m1_tmp":38.3,"upload_date":"2017-08-15 05:22:43"},
+		{"id":8322,"m1_average":0.94,"m1_peek":6,"m1_btn":43,"m1_tmp":38.3,"upload_date":"2017-08-15 05:24:43"},
+		{"id":8323,"m1_average":1.05,"m1_peek":7,"m1_btn":43,"m1_tmp":38.3,"upload_date":"2017-08-15 05:26:43"},
+		{"id":8324,"m1_average":0.91,"m1_peek":2,"m1_btn":43,"m1_tmp":38.3,"upload_date":"2017-08-15 05:28:43"},
+		{"id":8325,"m1_average":2.1,"m1_peek":9,"m1_btn":43,"m1_tmp":37.98,"upload_date":"2017-08-15 05:30:43"},
+		{"id":8326,"m1_average":1.02,"m1_peek":5,"m1_btn":44,"m1_tmp":38.3,"upload_date":"2017-08-15 05:32:43"},
+		{"id":8327,"m1_average":0.99,"m1_peek":4,"m1_btn":44,"m1_tmp":38.3,"upload_date":"2017-08-15 05:34:43"},
+		{"id":8328,"m1_average":1.11,"m1_peek":3,"m1_btn":45,"m1_tmp":38.3,"upload_date":"2017-08-15 05:36:43"},
+		{"id":8329,"m1_average":1.01,"m1_peek":2,"m1_btn":45,"m1_tmp":37.98,"upload_date":"2017-08-15 05:38:43"},
+		{"id":8330,"m1_average":0.97,"m1_peek":2,"m1_btn":47,"m1_tmp":37.98,"upload_date":"2017-08-15 05:40:43"},
+		{"id":8331,"m1_average":1.18,"m1_peek":5,"m1_btn":48,"m1_tmp":38.3,"upload_date":"2017-08-15 05:42:43"},
+		{"id":8332,"m1_average":1,"m1_peek":4,"m1_btn":50,"m1_tmp":37.98,"upload_date":"2017-08-15 05:44:43"},
+		{"id":8333,"m1_average":0.91,"m1_peek":3,"m1_btn":52,"m1_tmp":37.98,"upload_date":"2017-08-15 05:46:44"},
+		{"id":8334,"m1_average":0.92,"m1_peek":2,"m1_btn":55,"m1_tmp":38.3,"upload_date":"2017-08-15 05:48:44"},
+		{"id":8335,"m1_average":0.93,"m1_peek":5,"m1_btn":59,"m1_tmp":38.3,"upload_date":"2017-08-15 05:50:44"},
+		{"id":8336,"m1_average":0.97,"m1_peek":10,"m1_btn":64,"m1_tmp":38.3,"upload_date":"2017-08-15 05:52:44"},
+		{"id":8337,"m1_average":1.01,"m1_peek":13,"m1_btn":69,"m1_tmp":38.3,"upload_date":"2017-08-15 05:54:44"},
+		{"id":8338,"m1_average":0.89,"m1_peek":4,"m1_btn":75,"m1_tmp":38.62,"upload_date":"2017-08-15 05:56:44"},
+		{"id":8339,"m1_average":0.88,"m1_peek":5,"m1_btn":82,"m1_tmp":38.3,"upload_date":"2017-08-15 05:58:44"},
+		{"id":8340,"m1_average":1,"m1_peek":4,"m1_btn":90,"m1_tmp":38.3,"upload_date":"2017-08-15 06:00:44"},
+		{"id":8341,"m1_average":1.61,"m1_peek":16,"m1_btn":99,"m1_tmp":38.3,"upload_date":"2017-08-15 06:02:44"},
+		{"id":8342,"m1_average":1.01,"m1_peek":15,"m1_btn":109,"m1_tmp":38.62,"upload_date":"2017-08-15 06:04:44"},
+		{"id":8343,"m1_average":2.07,"m1_peek":56,"m1_btn":377,"m1_tmp":40.88,"upload_date":"2017-08-15 06:06:44"},
+		{"id":8344,"m1_average":1.03,"m1_peek":4,"m1_btn":385,"m1_tmp":40.88,"upload_date":"2017-08-15 06:08:45"},
+		{"id":8345,"m1_average":1.33,"m1_peek":58,"m1_btn":390,"m1_tmp":41.2,"upload_date":"2017-08-15 06:10:45"},
+		{"id":8346,"m1_average":2.99,"m1_peek":41,"m1_btn":393,"m1_tmp":41.2,"upload_date":"2017-08-15 06:12:45"},
+		{"id":8347,"m1_average":2.4,"m1_peek":36,"m1_btn":397,"m1_tmp":41.2,"upload_date":"2017-08-15 06:14:45"},
+		{"id":8348,"m1_average":1.15,"m1_peek":16,"m1_btn":401,"m1_tmp":41.2,"upload_date":"2017-08-15 06:16:45"},
+		{"id":8349,"m1_average":1.19,"m1_peek":12,"m1_btn":407,"m1_tmp":41.2,"upload_date":"2017-08-15 06:18:45"},
+		{"id":8350,"m1_average":1.13,"m1_peek":14,"m1_btn":414,"m1_tmp":41.52,"upload_date":"2017-08-15 06:20:45"},
+		{"id":8351,"m1_average":1.78,"m1_peek":16,"m1_btn":420,"m1_tmp":41.2,"upload_date":"2017-08-15 06:22:45"},
+		{"id":8352,"m1_average":2.58,"m1_peek":16,"m1_btn":426,"m1_tmp":41.52,"upload_date":"2017-08-15 06:24:45"},
+		{"id":8353,"m1_average":1.92,"m1_peek":33,"m1_btn":444,"m1_tmp":41.52,"upload_date":"2017-08-15 06:26:45"},
+		{"id":8354,"m1_average":2.78,"m1_peek":65,"m1_btn":473,"m1_tmp":41.85,"upload_date":"2017-08-15 06:28:45"},
+		{"id":8355,"m1_average":1.17,"m1_peek":4,"m1_btn":482,"m1_tmp":41.85,"upload_date":"2017-08-15 06:30:45"},
+		{"id":8356,"m1_average":1.27,"m1_peek":11,"m1_btn":486,"m1_tmp":42.17,"upload_date":"2017-08-15 06:32:45"},
+		{"id":8357,"m1_average":1.15,"m1_peek":9,"m1_btn":489,"m1_tmp":41.85,"upload_date":"2017-08-15 06:34:45"},
+		{"id":8358,"m1_average":1.11,"m1_peek":4,"m1_btn":458,"m1_tmp":41.85,"upload_date":"2017-08-15 06:36:45"},
+		{"id":8359,"m1_average":1.1,"m1_peek":6,"m1_btn":455,"m1_tmp":41.85,"upload_date":"2017-08-15 06:38:45"},
+		{"id":8360,"m1_average":2.17,"m1_peek":91,"m1_btn":461,"m1_tmp":41.85,"upload_date":"2017-08-15 06:40:45"},
+		{"id":8361,"m1_average":2.89,"m1_peek":35,"m1_btn":468,"m1_tmp":41.85,"upload_date":"2017-08-15 06:42:45"},
+		{"id":8362,"m1_average":2.9,"m1_peek":36,"m1_btn":490,"m1_tmp":42.17,"upload_date":"2017-08-15 06:44:45"},
+		{"id":8363,"m1_average":2,"m1_peek":20,"m1_btn":537,"m1_tmp":42.49,"upload_date":"2017-08-15 06:46:45"},
+		{"id":8364,"m1_average":2.45,"m1_peek":82,"m1_btn":514,"m1_tmp":42.49,"upload_date":"2017-08-15 06:48:45"},
+		{"id":8365,"m1_average":4.95,"m1_peek":91,"m1_btn":522,"m1_tmp":42.49,"upload_date":"2017-08-15 06:50:45"},
+		{"id":8366,"m1_average":3.44,"m1_peek":74,"m1_btn":583,"m1_tmp":43.13,"upload_date":"2017-08-15 06:52:46"},
+		{"id":8367,"m1_average":2.74,"m1_peek":87,"m1_btn":580,"m1_tmp":43.13,"upload_date":"2017-08-15 06:54:46"},
+		{"id":8368,"m1_average":3.09,"m1_peek":62,"m1_btn":593,"m1_tmp":43.13,"upload_date":"2017-08-15 06:56:46"},
+		{"id":8369,"m1_average":2.84,"m1_peek":55,"m1_btn":596,"m1_tmp":43.46,"upload_date":"2017-08-15 06:58:46"},
+		{"id":8370,"m1_average":2.87,"m1_peek":91,"m1_btn":599,"m1_tmp":43.13,"upload_date":"2017-08-15 07:00:46"},
+		{"id":8371,"m1_average":3.08,"m1_peek":56,"m1_btn":602,"m1_tmp":43.46,"upload_date":"2017-08-15 07:02:46"},
+		{"id":8372,"m1_average":1.83,"m1_peek":30,"m1_btn":605,"m1_tmp":43.46,"upload_date":"2017-08-15 07:04:46"},
+		{"id":8373,"m1_average":2.23,"m1_peek":22,"m1_btn":605,"m1_tmp":43.46,"upload_date":"2017-08-15 07:06:46"},
+		{"id":8374,"m1_average":2.17,"m1_peek":70,"m1_btn":610,"m1_tmp":43.78,"upload_date":"2017-08-15 07:08:46"},
+		{"id":8375,"m1_average":1.97,"m1_peek":83,"m1_btn":608,"m1_tmp":43.46,"upload_date":"2017-08-15 07:10:46"},
+		{"id":8376,"m1_average":2.56,"m1_peek":90,"m1_btn":604,"m1_tmp":43.13,"upload_date":"2017-08-15 07:12:46"},
+		{"id":8377,"m1_average":2.34,"m1_peek":33,"m1_btn":602,"m1_tmp":43.13,"upload_date":"2017-08-15 07:14:46"},
+		{"id":8378,"m1_average":1.98,"m1_peek":13,"m1_btn":599,"m1_tmp":43.13,"upload_date":"2017-08-15 07:16:46"},
+		{"id":8379,"m1_average":2.89,"m1_peek":91,"m1_btn":596,"m1_tmp":43.13,"upload_date":"2017-08-15 07:18:46"},
+		{"id":8380,"m1_average":2.58,"m1_peek":91,"m1_btn":561,"m1_tmp":43.13,"upload_date":"2017-08-15 07:20:46"},
+		{"id":8381,"m1_average":1.51,"m1_peek":10,"m1_btn":564,"m1_tmp":42.81,"upload_date":"2017-08-15 07:22:46"},
+		{"id":8382,"m1_average":1.59,"m1_peek":5,"m1_btn":567,"m1_tmp":42.81,"upload_date":"2017-08-15 07:24:46"},
+		{"id":8383,"m1_average":1.54,"m1_peek":3,"m1_btn":565,"m1_tmp":42.81,"upload_date":"2017-08-15 07:26:46"},
+		{"id":8384,"m1_average":1.75,"m1_peek":9,"m1_btn":567,"m1_tmp":42.81,"upload_date":"2017-08-15 07:28:46"},
+		{"id":8385,"m1_average":1.55,"m1_peek":4,"m1_btn":567,"m1_tmp":42.81,"upload_date":"2017-08-15 07:30:46"},
+		{"id":8386,"m1_average":1.7,"m1_peek":9,"m1_btn":566,"m1_tmp":42.81,"upload_date":"2017-08-15 07:32:46"},
+		{"id":8387,"m1_average":1.75,"m1_peek":42,"m1_btn":564,"m1_tmp":42.81,"upload_date":"2017-08-15 07:34:47"},
+		{"id":8388,"m1_average":1.37,"m1_peek":6,"m1_btn":558,"m1_tmp":42.81,"upload_date":"2017-08-15 07:36:47"},
+		{"id":8389,"m1_average":1.42,"m1_peek":4,"m1_btn":546,"m1_tmp":42.49,"upload_date":"2017-08-15 07:38:47"},
+		{"id":8390,"m1_average":1.7,"m1_peek":17,"m1_btn":564,"m1_tmp":42.81,"upload_date":"2017-08-15 07:40:47"},
+		{"id":8391,"m1_average":1.3,"m1_peek":7,"m1_btn":566,"m1_tmp":42.49,"upload_date":"2017-08-15 07:42:47"},
+		{"id":8392,"m1_average":1.23,"m1_peek":3,"m1_btn":565,"m1_tmp":42.49,"upload_date":"2017-08-15 07:44:47"},
+		{"id":8393,"m1_average":1.29,"m1_peek":5,"m1_btn":564,"m1_tmp":42.49,"upload_date":"2017-08-15 07:46:47"},
+		{"id":8394,"m1_average":1.31,"m1_peek":9,"m1_btn":563,"m1_tmp":42.81,"upload_date":"2017-08-15 07:48:47"},
+		{"id":8395,"m1_average":1.91,"m1_peek":12,"m1_btn":563,"m1_tmp":42.49,"upload_date":"2017-08-15 07:50:47"},
+		{"id":8396,"m1_average":2.27,"m1_peek":66,"m1_btn":596,"m1_tmp":42.81,"upload_date":"2017-08-15 07:52:47"},
+		{"id":8397,"m1_average":3.66,"m1_peek":18,"m1_btn":604,"m1_tmp":43.13,"upload_date":"2017-08-15 07:54:47"},
+		{"id":8398,"m1_average":3.16,"m1_peek":38,"m1_btn":605,"m1_tmp":43.13,"upload_date":"2017-08-15 07:56:47"},
+		{"id":8399,"m1_average":2.61,"m1_peek":27,"m1_btn":606,"m1_tmp":43.13,"upload_date":"2017-08-15 07:58:47"},
+		{"id":8400,"m1_average":3.88,"m1_peek":57,"m1_btn":607,"m1_tmp":43.13,"upload_date":"2017-08-15 08:00:47"},
+		{"id":8401,"m1_average":3.17,"m1_peek":19,"m1_btn":606,"m1_tmp":43.13,"upload_date":"2017-08-15 08:02:47"},
+		{"id":8402,"m1_average":3.19,"m1_peek":33,"m1_btn":606,"m1_tmp":43.13,"upload_date":"2017-08-15 08:04:47"},
+		{"id":8403,"m1_average":3.07,"m1_peek":19,"m1_btn":606,"m1_tmp":43.13,"upload_date":"2017-08-15 08:06:47"},
+		{"id":8404,"m1_average":3.39,"m1_peek":55,"m1_btn":606,"m1_tmp":43.13,"upload_date":"2017-08-15 08:08:47"},
+		{"id":8405,"m1_average":4.05,"m1_peek":24,"m1_btn":606,"m1_tmp":42.81,"upload_date":"2017-08-15 08:10:47"},
+		{"id":8406,"m1_average":3.04,"m1_peek":52,"m1_btn":565,"m1_tmp":42.81,"upload_date":"2017-08-15 08:12:47"},
+		{"id":8407,"m1_average":1.73,"m1_peek":10,"m1_btn":567,"m1_tmp":42.81,"upload_date":"2017-08-15 08:14:47"},
+		{"id":8408,"m1_average":1.55,"m1_peek":6,"m1_btn":576,"m1_tmp":42.81,"upload_date":"2017-08-15 08:16:47"},
+		{"id":8409,"m1_average":1.67,"m1_peek":7,"m1_btn":574,"m1_tmp":42.81,"upload_date":"2017-08-15 08:18:48"},
+		{"id":8410,"m1_average":1.29,"m1_peek":6,"m1_btn":585,"m1_tmp":42.81,"upload_date":"2017-08-15 08:20:48"},
+		{"id":8411,"m1_average":1.58,"m1_peek":6,"m1_btn":579,"m1_tmp":42.81,"upload_date":"2017-08-15 08:22:48"},
+		{"id":8412,"m1_average":1.92,"m1_peek":12,"m1_btn":576,"m1_tmp":42.81,"upload_date":"2017-08-15 08:24:48"},
+		{"id":8413,"m1_average":1.71,"m1_peek":7,"m1_btn":575,"m1_tmp":42.81,"upload_date":"2017-08-15 08:26:48"},
+		{"id":8414,"m1_average":1.81,"m1_peek":9,"m1_btn":576,"m1_tmp":42.81,"upload_date":"2017-08-15 08:28:48"},
+		{"id":8415,"m1_average":1.48,"m1_peek":16,"m1_btn":576,"m1_tmp":42.81,"upload_date":"2017-08-15 08:30:48"},
+		{"id":8416,"m1_average":1.58,"m1_peek":10,"m1_btn":575,"m1_tmp":42.81,"upload_date":"2017-08-15 08:32:48"},
+		{"id":8417,"m1_average":1.52,"m1_peek":7,"m1_btn":575,"m1_tmp":42.49,"upload_date":"2017-08-15 08:34:48"},
+		{"id":8418,"m1_average":1.57,"m1_peek":9,"m1_btn":577,"m1_tmp":42.81,"upload_date":"2017-08-15 08:36:48"},
+		{"id":8419,"m1_average":1.64,"m1_peek":12,"m1_btn":578,"m1_tmp":42.49,"upload_date":"2017-08-15 08:38:48"},
+		{"id":8420,"m1_average":1.68,"m1_peek":11,"m1_btn":579,"m1_tmp":42.81,"upload_date":"2017-08-15 08:40:48"},
+		{"id":8421,"m1_average":1.81,"m1_peek":18,"m1_btn":581,"m1_tmp":42.81,"upload_date":"2017-08-15 08:42:48"},
+		{"id":8422,"m1_average":1.61,"m1_peek":19,"m1_btn":582,"m1_tmp":42.81,"upload_date":"2017-08-15 08:44:48"},
+		{"id":8423,"m1_average":2.14,"m1_peek":40,"m1_btn":582,"m1_tmp":42.81,"upload_date":"2017-08-15 08:46:49"},
+		{"id":8424,"m1_average":1.73,"m1_peek":44,"m1_btn":583,"m1_tmp":42.81,"upload_date":"2017-08-15 08:48:49"},
+		{"id":8425,"m1_average":1.82,"m1_peek":11,"m1_btn":583,"m1_tmp":42.81,"upload_date":"2017-08-15 08:50:49"},
+		{"id":8426,"m1_average":2,"m1_peek":6,"m1_btn":569,"m1_tmp":42.81,"upload_date":"2017-08-15 08:52:49"},
+		{"id":8427,"m1_average":2.49,"m1_peek":35,"m1_btn":579,"m1_tmp":42.81,"upload_date":"2017-08-15 08:54:49"},
+		{"id":8428,"m1_average":2.08,"m1_peek":23,"m1_btn":582,"m1_tmp":42.81,"upload_date":"2017-08-15 08:56:49"},
+		{"id":8429,"m1_average":1.67,"m1_peek":12,"m1_btn":585,"m1_tmp":43.13,"upload_date":"2017-08-15 08:58:49"},
+		{"id":8430,"m1_average":1.92,"m1_peek":9,"m1_btn":581,"m1_tmp":42.81,"upload_date":"2017-08-15 09:00:49"},
+		{"id":8431,"m1_average":1.71,"m1_peek":12,"m1_btn":586,"m1_tmp":43.13,"upload_date":"2017-08-15 09:02:49"},
+		{"id":8432,"m1_average":2,"m1_peek":26,"m1_btn":590,"m1_tmp":42.81,"upload_date":"2017-08-15 09:04:49"},
+		{"id":8433,"m1_average":1.69,"m1_peek":8,"m1_btn":599,"m1_tmp":43.13,"upload_date":"2017-08-15 09:06:49"},
+		{"id":8434,"m1_average":1.76,"m1_peek":5,"m1_btn":596,"m1_tmp":43.13,"upload_date":"2017-08-15 09:08:49"},
+		{"id":8435,"m1_average":1.61,"m1_peek":12,"m1_btn":603,"m1_tmp":43.13,"upload_date":"2017-08-15 09:10:49"},
+		{"id":8436,"m1_average":1.9,"m1_peek":13,"m1_btn":599,"m1_tmp":43.13,"upload_date":"2017-08-15 09:12:49"},
+		{"id":8437,"m1_average":1.71,"m1_peek":13,"m1_btn":598,"m1_tmp":42.81,"upload_date":"2017-08-15 09:14:50"},
+		{"id":8438,"m1_average":1.1,"m1_peek":8,"m1_btn":602,"m1_tmp":43.13,"upload_date":"2017-08-15 09:16:50"},
+		{"id":8439,"m1_average":1.12,"m1_peek":16,"m1_btn":605,"m1_tmp":43.13,"upload_date":"2017-08-15 09:18:50"},
+		{"id":8440,"m1_average":1.53,"m1_peek":21,"m1_btn":613,"m1_tmp":43.13,"upload_date":"2017-08-15 09:20:50"},
+		{"id":8441,"m1_average":1.14,"m1_peek":11,"m1_btn":615,"m1_tmp":43.13,"upload_date":"2017-08-15 09:22:50"},
+		{"id":8442,"m1_average":1.28,"m1_peek":8,"m1_btn":610,"m1_tmp":43.46,"upload_date":"2017-08-15 09:24:50"},
+		{"id":8443,"m1_average":1.08,"m1_peek":13,"m1_btn":614,"m1_tmp":43.46,"upload_date":"2017-08-15 09:26:50"},
+		{"id":8444,"m1_average":1.63,"m1_peek":17,"m1_btn":616,"m1_tmp":43.13,"upload_date":"2017-08-15 09:28:50"},
+		{"id":8445,"m1_average":1.15,"m1_peek":4,"m1_btn":606,"m1_tmp":43.46,"upload_date":"2017-08-15 09:30:50"},
+		{"id":8446,"m1_average":0.91,"m1_peek":8,"m1_btn":601,"m1_tmp":43.13,"upload_date":"2017-08-15 09:32:50"},
+		{"id":8447,"m1_average":1.17,"m1_peek":9,"m1_btn":604,"m1_tmp":42.81,"upload_date":"2017-08-15 09:34:50"},
+		{"id":8448,"m1_average":1.09,"m1_peek":5,"m1_btn":610,"m1_tmp":43.13,"upload_date":"2017-08-15 09:36:50"},
+		{"id":8449,"m1_average":1.06,"m1_peek":10,"m1_btn":623,"m1_tmp":43.46,"upload_date":"2017-08-15 09:38:50"},
+		{"id":8450,"m1_average":1.23,"m1_peek":8,"m1_btn":647,"m1_tmp":43.46,"upload_date":"2017-08-15 09:40:50"},
+		{"id":8451,"m1_average":1.42,"m1_peek":16,"m1_btn":655,"m1_tmp":43.78,"upload_date":"2017-08-15 09:42:50"},
+		{"id":8452,"m1_average":1.24,"m1_peek":12,"m1_btn":654,"m1_tmp":43.78,"upload_date":"2017-08-15 09:44:50"},
+		{"id":8453,"m1_average":0.96,"m1_peek":10,"m1_btn":664,"m1_tmp":43.78,"upload_date":"2017-08-15 09:46:50"},
+		{"id":8454,"m1_average":0.88,"m1_peek":5,"m1_btn":672,"m1_tmp":44.1,"upload_date":"2017-08-15 09:48:50"},
+		{"id":8455,"m1_average":0.99,"m1_peek":6,"m1_btn":652,"m1_tmp":43.46,"upload_date":"2017-08-15 09:50:50"},
+		{"id":8456,"m1_average":0.99,"m1_peek":7,"m1_btn":645,"m1_tmp":43.78,"upload_date":"2017-08-15 09:52:50"},
+		{"id":8457,"m1_average":0.95,"m1_peek":7,"m1_btn":639,"m1_tmp":43.78,"upload_date":"2017-08-15 09:54:50"},
+		{"id":8458,"m1_average":0.78,"m1_peek":6,"m1_btn":631,"m1_tmp":43.78,"upload_date":"2017-08-15 09:56:50"},
+		{"id":8459,"m1_average":2.6,"m1_peek":67,"m1_btn":621,"m1_tmp":43.46,"upload_date":"2017-08-15 09:58:51"},
+		{"id":8460,"m1_average":1.49,"m1_peek":59,"m1_btn":634,"m1_tmp":43.46,"upload_date":"2017-08-15 10:00:51"},
+		{"id":8461,"m1_average":1.05,"m1_peek":5,"m1_btn":629,"m1_tmp":43.78,"upload_date":"2017-08-15 10:02:51"},
+		{"id":8462,"m1_average":1.02,"m1_peek":4,"m1_btn":618,"m1_tmp":43.46,"upload_date":"2017-08-15 10:04:51"},
+		{"id":8463,"m1_average":1.66,"m1_peek":11,"m1_btn":601,"m1_tmp":43.13,"upload_date":"2017-08-15 10:06:51"},
+		{"id":8464,"m1_average":1.26,"m1_peek":7,"m1_btn":596,"m1_tmp":43.13,"upload_date":"2017-08-15 10:08:51"},
+		{"id":8465,"m1_average":1.55,"m1_peek":12,"m1_btn":594,"m1_tmp":43.46,"upload_date":"2017-08-15 10:10:51"},
+		{"id":8466,"m1_average":0.98,"m1_peek":3,"m1_btn":596,"m1_tmp":43.46,"upload_date":"2017-08-15 10:12:51"},
+		{"id":8467,"m1_average":0.85,"m1_peek":5,"m1_btn":602,"m1_tmp":43.46,"upload_date":"2017-08-15 10:14:51"},
+		{"id":8468,"m1_average":0.92,"m1_peek":4,"m1_btn":619,"m1_tmp":43.46,"upload_date":"2017-08-15 10:16:51"},
+		{"id":8469,"m1_average":1.29,"m1_peek":20,"m1_btn":603,"m1_tmp":43.46,"upload_date":"2017-08-15 10:18:51"},
+		{"id":8470,"m1_average":1.18,"m1_peek":12,"m1_btn":614,"m1_tmp":43.78,"upload_date":"2017-08-15 10:20:51"},
+		{"id":8471,"m1_average":1.01,"m1_peek":4,"m1_btn":626,"m1_tmp":43.78,"upload_date":"2017-08-15 10:22:51"},
+		{"id":8472,"m1_average":0.96,"m1_peek":3,"m1_btn":628,"m1_tmp":43.78,"upload_date":"2017-08-15 10:24:51"},
+		{"id":8473,"m1_average":1.01,"m1_peek":3,"m1_btn":628,"m1_tmp":44.1,"upload_date":"2017-08-15 10:26:51"},
+		{"id":8474,"m1_average":1.03,"m1_peek":3,"m1_btn":624,"m1_tmp":43.46,"upload_date":"2017-08-15 10:28:51"},
+		{"id":8475,"m1_average":1.21,"m1_peek":4,"m1_btn":622,"m1_tmp":43.78,"upload_date":"2017-08-15 10:30:51"},
+		{"id":8476,"m1_average":1.36,"m1_peek":11,"m1_btn":621,"m1_tmp":43.46,"upload_date":"2017-08-15 10:32:51"},
+		{"id":8477,"m1_average":1.67,"m1_peek":43,"m1_btn":628,"m1_tmp":43.78,"upload_date":"2017-08-15 10:34:51"},
+		{"id":8478,"m1_average":1.16,"m1_peek":16,"m1_btn":630,"m1_tmp":43.46,"upload_date":"2017-08-15 10:36:51"},
+		{"id":8479,"m1_average":1.2,"m1_peek":6,"m1_btn":629,"m1_tmp":43.78,"upload_date":"2017-08-15 10:38:52"},
+		{"id":8480,"m1_average":1.7,"m1_peek":37,"m1_btn":624,"m1_tmp":43.46,"upload_date":"2017-08-15 10:40:52"},
+		{"id":8481,"m1_average":1.53,"m1_peek":13,"m1_btn":628,"m1_tmp":43.46,"upload_date":"2017-08-15 10:42:52"},
+		{"id":8482,"m1_average":0.92,"m1_peek":4,"m1_btn":636,"m1_tmp":43.78,"upload_date":"2017-08-15 10:44:52"},
+		{"id":8483,"m1_average":1.08,"m1_peek":6,"m1_btn":645,"m1_tmp":44.1,"upload_date":"2017-08-15 10:46:52"},
+		{"id":8484,"m1_average":1.41,"m1_peek":11,"m1_btn":656,"m1_tmp":43.78,"upload_date":"2017-08-15 10:48:52"},
+		{"id":8485,"m1_average":1.23,"m1_peek":7,"m1_btn":661,"m1_tmp":44.1,"upload_date":"2017-08-15 10:50:52"},
+		{"id":8486,"m1_average":0.98,"m1_peek":7,"m1_btn":661,"m1_tmp":44.1,"upload_date":"2017-08-15 10:52:52"},
+		{"id":8487,"m1_average":1.05,"m1_peek":10,"m1_btn":666,"m1_tmp":43.78,"upload_date":"2017-08-15 10:54:52"},
+		{"id":8488,"m1_average":1.22,"m1_peek":13,"m1_btn":670,"m1_tmp":44.1,"upload_date":"2017-08-15 10:56:52"},
+		{"id":8489,"m1_average":1.43,"m1_peek":14,"m1_btn":677,"m1_tmp":44.1,"upload_date":"2017-08-15 10:58:52"},
+		{"id":8490,"m1_average":1.08,"m1_peek":8,"m1_btn":677,"m1_tmp":44.1,"upload_date":"2017-08-15 11:00:52"},
+		{"id":8491,"m1_average":1.05,"m1_peek":6,"m1_btn":678,"m1_tmp":44.1,"upload_date":"2017-08-15 11:02:52"},
+		{"id":8492,"m1_average":1.08,"m1_peek":7,"m1_btn":680,"m1_tmp":43.78,"upload_date":"2017-08-15 11:04:52"},
+		{"id":8493,"m1_average":1,"m1_peek":6,"m1_btn":687,"m1_tmp":44.42,"upload_date":"2017-08-15 11:06:52"},
+		{"id":8494,"m1_average":1.02,"m1_peek":9,"m1_btn":684,"m1_tmp":44.1,"upload_date":"2017-08-15 11:08:52"},
+		{"id":8495,"m1_average":1.26,"m1_peek":12,"m1_btn":683,"m1_tmp":44.1,"upload_date":"2017-08-15 11:10:52"},
+		{"id":8496,"m1_average":2.36,"m1_peek":40,"m1_btn":682,"m1_tmp":44.1,"upload_date":"2017-08-15 11:12:52"},
+		{"id":8497,"m1_average":1.92,"m1_peek":10,"m1_btn":676,"m1_tmp":44.1,"upload_date":"2017-08-15 11:14:52"},
+		{"id":8498,"m1_average":1.69,"m1_peek":10,"m1_btn":678,"m1_tmp":44.42,"upload_date":"2017-08-15 11:16:52"},
+		{"id":8499,"m1_average":2.18,"m1_peek":16,"m1_btn":673,"m1_tmp":44.1,"upload_date":"2017-08-15 11:18:52"},
+		{"id":8500,"m1_average":1.19,"m1_peek":10,"m1_btn":670,"m1_tmp":44.1,"upload_date":"2017-08-15 11:20:52"},
+		{"id":8501,"m1_average":0.91,"m1_peek":6,"m1_btn":668,"m1_tmp":44.1,"upload_date":"2017-08-15 11:22:53"},
+		{"id":8502,"m1_average":1.8,"m1_peek":14,"m1_btn":666,"m1_tmp":44.1,"upload_date":"2017-08-15 11:24:53"},
+		{"id":8503,"m1_average":0.95,"m1_peek":7,"m1_btn":663,"m1_tmp":44.1,"upload_date":"2017-08-15 11:26:53"},
+		{"id":8504,"m1_average":1.33,"m1_peek":12,"m1_btn":656,"m1_tmp":44.1,"upload_date":"2017-08-15 11:28:53"},
+		{"id":8505,"m1_average":1.73,"m1_peek":14,"m1_btn":648,"m1_tmp":44.1,"upload_date":"2017-08-15 11:30:53"},
+		{"id":8506,"m1_average":2.46,"m1_peek":38,"m1_btn":653,"m1_tmp":44.1,"upload_date":"2017-08-15 11:32:53"},
+		{"id":8507,"m1_average":3.13,"m1_peek":37,"m1_btn":658,"m1_tmp":44.42,"upload_date":"2017-08-15 11:34:53"},
+		{"id":8508,"m1_average":3.77,"m1_peek":57,"m1_btn":660,"m1_tmp":44.1,"upload_date":"2017-08-15 11:36:53"},
+		{"id":8509,"m1_average":4.66,"m1_peek":66,"m1_btn":682,"m1_tmp":44.42,"upload_date":"2017-08-15 11:38:53"},
+		{"id":8510,"m1_average":1.59,"m1_peek":23,"m1_btn":687,"m1_tmp":44.42,"upload_date":"2017-08-15 11:40:53"},
+		{"id":8511,"m1_average":1.24,"m1_peek":27,"m1_btn":690,"m1_tmp":44.42,"upload_date":"2017-08-15 11:42:53"},
+		{"id":8512,"m1_average":1.08,"m1_peek":7,"m1_btn":692,"m1_tmp":44.42,"upload_date":"2017-08-15 11:44:53"},
+		{"id":8513,"m1_average":1.46,"m1_peek":31,"m1_btn":692,"m1_tmp":44.42,"upload_date":"2017-08-15 11:46:53"},
+		{"id":8514,"m1_average":1.21,"m1_peek":29,"m1_btn":692,"m1_tmp":44.42,"upload_date":"2017-08-15 11:48:54"},
+		{"id":8515,"m1_average":1.63,"m1_peek":45,"m1_btn":692,"m1_tmp":44.42,"upload_date":"2017-08-15 11:50:54"},
+		{"id":8516,"m1_average":1.52,"m1_peek":34,"m1_btn":692,"m1_tmp":44.42,"upload_date":"2017-08-15 11:52:54"},
+		{"id":8517,"m1_average":1.75,"m1_peek":43,"m1_btn":690,"m1_tmp":44.42,"upload_date":"2017-08-15 11:54:54"},
+		{"id":8518,"m1_average":3.18,"m1_peek":44,"m1_btn":687,"m1_tmp":44.42,"upload_date":"2017-08-15 11:56:54"},
+		{"id":8519,"m1_average":3.04,"m1_peek":53,"m1_btn":686,"m1_tmp":44.1,"upload_date":"2017-08-15 11:58:54"},
+		{"id":8520,"m1_average":1.26,"m1_peek":8,"m1_btn":689,"m1_tmp":44.42,"upload_date":"2017-08-15 12:00:54"},
+		{"id":8521,"m1_average":1.07,"m1_peek":14,"m1_btn":686,"m1_tmp":44.42,"upload_date":"2017-08-15 12:02:54"},
+		{"id":8522,"m1_average":1.51,"m1_peek":11,"m1_btn":685,"m1_tmp":44.42,"upload_date":"2017-08-15 12:04:54"},
+		{"id":8523,"m1_average":1.93,"m1_peek":40,"m1_btn":686,"m1_tmp":44.42,"upload_date":"2017-08-15 12:06:54"},
+		{"id":8524,"m1_average":1.8,"m1_peek":21,"m1_btn":689,"m1_tmp":44.42,"upload_date":"2017-08-15 12:08:54"},
+		{"id":8525,"m1_average":2.5,"m1_peek":33,"m1_btn":688,"m1_tmp":44.42,"upload_date":"2017-08-15 12:10:54"},
+		{"id":8526,"m1_average":2.95,"m1_peek":91,"m1_btn":688,"m1_tmp":44.42,"upload_date":"2017-08-15 12:12:54"},
+		{"id":8527,"m1_average":1.13,"m1_peek":9,"m1_btn":686,"m1_tmp":44.42,"upload_date":"2017-08-15 12:14:54"},
+		{"id":8528,"m1_average":1.86,"m1_peek":55,"m1_btn":686,"m1_tmp":44.42,"upload_date":"2017-08-15 12:16:54"},
+		{"id":8529,"m1_average":2.5,"m1_peek":32,"m1_btn":687,"m1_tmp":44.42,"upload_date":"2017-08-15 12:18:54"},
+		{"id":8530,"m1_average":1.13,"m1_peek":16,"m1_btn":687,"m1_tmp":44.42,"upload_date":"2017-08-15 12:20:54"},
+		{"id":8531,"m1_average":2.46,"m1_peek":42,"m1_btn":688,"m1_tmp":44.42,"upload_date":"2017-08-15 12:22:54"},
+		{"id":8532,"m1_average":1.39,"m1_peek":20,"m1_btn":688,"m1_tmp":44.42,"upload_date":"2017-08-15 12:24:54"},
+		{"id":8533,"m1_average":1.4,"m1_peek":6,"m1_btn":685,"m1_tmp":44.75,"upload_date":"2017-08-15 12:26:54"},
+		{"id":8534,"m1_average":1.3,"m1_peek":8,"m1_btn":684,"m1_tmp":44.42,"upload_date":"2017-08-15 12:28:54"},
+		{"id":8535,"m1_average":1.26,"m1_peek":11,"m1_btn":685,"m1_tmp":44.42,"upload_date":"2017-08-15 12:30:55"},
+		{"id":8536,"m1_average":1.71,"m1_peek":32,"m1_btn":684,"m1_tmp":44.42,"upload_date":"2017-08-15 12:32:55"},
+		{"id":8537,"m1_average":2.11,"m1_peek":53,"m1_btn":684,"m1_tmp":44.42,"upload_date":"2017-08-15 12:34:55"},
+		{"id":8538,"m1_average":1.57,"m1_peek":40,"m1_btn":683,"m1_tmp":44.42,"upload_date":"2017-08-15 12:36:55"},
+		{"id":8539,"m1_average":1.42,"m1_peek":12,"m1_btn":681,"m1_tmp":44.42,"upload_date":"2017-08-15 12:38:55"},
+		{"id":8540,"m1_average":1.09,"m1_peek":8,"m1_btn":681,"m1_tmp":44.42,"upload_date":"2017-08-15 12:40:55"},
+		{"id":8541,"m1_average":1.24,"m1_peek":21,"m1_btn":680,"m1_tmp":44.42,"upload_date":"2017-08-15 12:42:55"},
+		{"id":8542,"m1_average":2.72,"m1_peek":90,"m1_btn":679,"m1_tmp":44.1,"upload_date":"2017-08-15 12:44:55"},
+		{"id":8543,"m1_average":3.54,"m1_peek":83,"m1_btn":679,"m1_tmp":44.1,"upload_date":"2017-08-15 12:46:55"},
+		{"id":8544,"m1_average":1.85,"m1_peek":84,"m1_btn":678,"m1_tmp":44.1,"upload_date":"2017-08-15 12:48:55"},
+		{"id":8545,"m1_average":3.07,"m1_peek":84,"m1_btn":680,"m1_tmp":44.42,"upload_date":"2017-08-15 12:50:55"},
+		{"id":8546,"m1_average":1.18,"m1_peek":61,"m1_btn":682,"m1_tmp":44.42,"upload_date":"2017-08-15 12:52:55"},
+		{"id":8547,"m1_average":1.37,"m1_peek":57,"m1_btn":682,"m1_tmp":44.42,"upload_date":"2017-08-15 12:54:55"},
+		{"id":8548,"m1_average":1.92,"m1_peek":20,"m1_btn":682,"m1_tmp":44.42,"upload_date":"2017-08-15 12:56:55"},
+		{"id":8549,"m1_average":4.32,"m1_peek":48,"m1_btn":683,"m1_tmp":44.42,"upload_date":"2017-08-15 12:58:55"},
+		{"id":8550,"m1_average":4.6,"m1_peek":27,"m1_btn":684,"m1_tmp":44.42,"upload_date":"2017-08-15 13:00:55"},
+		{"id":8551,"m1_average":4.52,"m1_peek":37,"m1_btn":684,"m1_tmp":44.42,"upload_date":"2017-08-15 13:02:55"},
+		{"id":8552,"m1_average":3.19,"m1_peek":42,"m1_btn":682,"m1_tmp":44.42,"upload_date":"2017-08-15 13:04:55"},
+		{"id":8553,"m1_average":3.71,"m1_peek":89,"m1_btn":682,"m1_tmp":44.42,"upload_date":"2017-08-15 13:06:55"},
+		{"id":8554,"m1_average":1.92,"m1_peek":82,"m1_btn":682,"m1_tmp":44.42,"upload_date":"2017-08-15 13:08:55"},
+		{"id":8555,"m1_average":1.72,"m1_peek":23,"m1_btn":681,"m1_tmp":44.42,"upload_date":"2017-08-15 13:10:55"},
+		{"id":8556,"m1_average":1.31,"m1_peek":33,"m1_btn":680,"m1_tmp":44.42,"upload_date":"2017-08-15 13:12:56"},
+		{"id":8557,"m1_average":2.26,"m1_peek":35,"m1_btn":680,"m1_tmp":44.42,"upload_date":"2017-08-15 13:14:56"},
+		{"id":8558,"m1_average":1.7,"m1_peek":23,"m1_btn":680,"m1_tmp":44.42,"upload_date":"2017-08-15 13:16:56"}
+	]
+
+	var data = Object.keys(o).map(function(k) { return o[k] });
+
+	//////////////////////////////////////////////////////////////////////////////////
+	//		Globale Variablen
+	//////////////////////////////////////////////////////////////////////////////////
+	var scene, renderer, camera, arToolkitSource, arToolkitContext, markerControls;
+	var onRenderFcts = [];
+	var textlabels = [];
+
+	var sonnenaufgang, sonnenuntergang, sundata;
+
+
+
+	//////////////////////////////////////////////////////////////////////////////////
+	//		Sonnendaten laden
+	//////////////////////////////////////////////////////////////////////////////////
+	var d = new Date();
+	let day = d.getDate();
+	let month = d.getMonth() + 1;
+	let year = d.getFullYear();
+
+	var currentDay = day + "." + month + "." + year;
+
+	console.log(data.length);
+	
+	$(document).ready(function() {
+    $.ajax({
+        type: "GET",
+        url: "sonnendaten.csv",
+        dataType: "text",
+        success: function(data) {processData(data);}
+     });
+	});
+
+	function processData(input){
+		sundata = $.csv.toArrays(input);
+		//console.log(sundata);
+
+		for(var i = 0; i < sundata.length; i++)
+		{
+			if(sundata[i][0] == currentDay)
+			{
+				sonnenaufgang = sundata[i][5];
+				sonnenuntergang = sundata[i][6];
+				//console.log("Sonnenaufgang: " + sonnenaufgang);
+				//console.log("Sonnenuntergang: " + sonnenuntergang);
+			}
+		}
+
+		init();
+	}
+
+
+	//////////////////////////////////////////////////////////////////////////////////
+	//		Scene Initialisieren
+	//////////////////////////////////////////////////////////////////////////////////
+	function init()
+	{
+		// init renderer
+		renderer	= new THREE.WebGLRenderer({
+			antialias: true,
+			alpha: true
+		});
+		renderer.setClearColor(new THREE.Color('lightgrey'), 0)
+		renderer.setSize( 640, 480 );
+		renderer.domElement.style.position = 'absolute'
+		renderer.domElement.style.top = '0px'
+		renderer.domElement.style.left = '0px'
+		document.body.appendChild( renderer.domElement );
+
+
+		// init scene and camera
+		scene	= new THREE.Scene();
+			
+		//////////////////////////////////////////////////////////////////////////////////
+		//		Initialize a basic camera
+		//////////////////////////////////////////////////////////////////////////////////
+
+		// Create a camera
+		camera = new THREE.Camera();
+		scene.add(camera);
+
+		////////////////////////////////////////////////////////////////////////////////
+		//          handle arToolkitSource
+		////////////////////////////////////////////////////////////////////////////////
+
+		arToolkitSource = new THREEx.ArToolkitSource({
+			// to read from the webcam 
+			sourceType : 'webcam',
+			
+			// // to read from an image
+			// sourceType : 'image',
+			// sourceUrl : THREEx.ArToolkitContext.baseURL + '../data/images/img.jpg',		
+
+			// to read from a video
+			// sourceType : 'video',
+			// sourceUrl : THREEx.ArToolkitContext.baseURL + '../data/videos/headtracking.mp4',		
+		})
+
+		arToolkitSource.init(function onReady(){
+			onResize()
+		})
+		
+		// handle resize
+		window.addEventListener('resize', function(){
+			onResize()
+		})
+		function onResize(){
+			arToolkitSource.onResize()	
+			arToolkitSource.copySizeTo(renderer.domElement)	
+			if( arToolkitContext.arController !== null ){
+				arToolkitSource.copySizeTo(arToolkitContext.arController.canvas)	
+			}	
+		}
+		////////////////////////////////////////////////////////////////////////////////
+		//          initialize arToolkitContext
+		////////////////////////////////////////////////////////////////////////////////
+		
+
+		// create atToolkitContext
+		arToolkitContext = new THREEx.ArToolkitContext({
+			cameraParametersUrl: 'data/data/camera_para.dat',
+			detectionMode: 'mono',
+		})
+		/*defaultMarkerParameters = {
+			type : 'pattern',
+			patternUrl : THREEx.ArToolkitContext.testURL + 'master/pattern-mid.patt'
+		}*/
+
+		// initialize it
+		arToolkitContext.init(function onCompleted(){
+			// copy projection matrix to camera
+			camera.projectionMatrix.copy( arToolkitContext.getProjectionMatrix() );
+		})
+
+		// update artoolkit on every frame
+		onRenderFcts.push(function(){
+			if( arToolkitSource.ready === false )	return
+
+			arToolkitContext.update( arToolkitSource.domElement )
+			
+			// update scene.visible if the marker is seen
+			scene.visible = camera.visible
+		})
+			
+		////////////////////////////////////////////////////////////////////////////////
+		//          Create a ArMarkerControls
+		////////////////////////////////////////////////////////////////////////////////
+		
+		// init controls for camera
+		markerControls = new THREEx.ArMarkerControls(arToolkitContext, camera, {
+			type : 'pattern',
+			//patternUrl : THREEx.ArToolkitContext.baseURL + '../data/data/patt.hiro',
+			//patternUrl : THREEx.ArToolkitContext.baseURL + '../data/data/patt.kanji',
+			patternUrl : 'data/data/marker.patt',
+			// as we controls the camera, set changeMatrixMode: 'cameraTransformMatrix'
+			changeMatrixMode: 'cameraTransformMatrix'
+		})
+		// as we do changeMatrixMode: 'cameraTransformMatrix', start with invisible scene
+		scene.visible = false
+
+
+
+
+
+
+
+		////////////////////////////////////////////////////////////////////////////////
+		//          Graph Hinzufügen
+		////////////////////////////////////////////////////////////////////////////////
+		addBrightness();
+		addTemperature();
+		addSound();
+		addDaytime();
+
+
+		/*$( '#preloader' ).delay( 1000 ).animate({
+		    opacity: 0
+		    //height: 0
+		  }, 1000, function() {
+	    	$('#preloader').remove();
+	  	});*
+
+
+		//addLines( 4 );
+
+	    //The X axis is red. --> rechts 
+	    //The Y axis is green. --> oben
+	    //The Z axis is blue. --> unten
+	    /*var axisHelper = new THREE.AxisHelper( 0.5 );
+		scene.add( axisHelper );*/
+
+		//add stats
+		/*var stats = new Stats();
+		stats.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
+		document.body.appendChild( stats.dom );*/
+
+
+
+
+
+		onRenderFcts.push(function(delta){
+			//this.textlabels[i].updatePosition();
+			//object.rotation.x += (Math.PI*delta)/10
+			//object.rotation.y += (Math.PI*delta)/10
+		})
+
+		//////////////////////////////////////////////////////////////////////////////////
+		//		render the whole thing on the page
+		//////////////////////////////////////////////////////////////////////////////////
+
+		// render the scene
+		onRenderFcts.push(function(){
+			renderer.render( scene, camera );
+			//updateBlob( object.geometry );
+		})
+
+		// run the rendering loop
+		var lastTimeMsec= null
+		requestAnimationFrame(function animate(nowMsec){
+			//stats.begin();
+			// keep looping
+			requestAnimationFrame( animate );
+			// measure time
+			lastTimeMsec	= lastTimeMsec || nowMsec-1000/60
+			var deltaMsec	= Math.min(200, nowMsec - lastTimeMsec)
+			lastTimeMsec	= nowMsec
+			// call each update function
+			onRenderFcts.forEach(function(onRenderFct){
+				onRenderFct(deltaMsec/1000, nowMsec/1000)
+			})
+
+			//stats.end();
+		})
+	}
+	
+
+
+
+
+	//////////////////////////////////////////////////////////////////////////////////
+	//		Functions
+	//////////////////////////////////////////////////////////////////////////////////
+	function map( value, istart, istop, ostart, ostop )
+	{
+		return ostart + (ostop - ostart) * ((value - istart) / (istop - istart));
+	}
+
+	Number.prototype.clamp = function(min, max) {
+	  return Math.min(Math.max(this, min), max);
+	};
+
+	function calcDaytime( start, end )
+	{
+		let startArray = start.split(":");	
+		let endArray = end.split(":");
+
+		let hours = endArray[0] - startArray[0];
+		let minutes = endArray[1] - startArray[1];
+
+		if ( minutes < 0 )
+		{
+			hours--;
+			minutes = 60 + minutes;
+		}
+
+		let timeLength = minutes + ( hours * 60 );
+
+		return timeLength;
+	}
+
+	function calcDaystart( start )
+	{
+		let startArray = start.split(":");
+
+		let hours = startArray[0];
+		let minutes = startArray[1];
+
+		let startTime = parseInt( hours ) * 60 + parseInt( minutes );
+
+		return map( startTime, 0, 1440, 0, Math.PI * 2);
+	}
+
+	//Daten als Punkte zeichen
+	function addSound()
+	{
+		var material = new THREE.PointsMaterial({
+	  		color: 0x009DE3,
+	  		size: 0.04,
+	  		opacity: 0.4
+	    });
+	    var geometry = new THREE.Geometry();
+
+		for (var i = 0; i < 717; i++) {
+			if(i < data.length)
+			{
+				//Durchschnitt hinzufügen
+		      	let radius = map(data[i].m1_average, 0, 4, 0, 0.5).clamp(0, 0.7);
+				let rotation = map(i, 0, 717, 0, -Math.PI * 2)
+
+				let x = radius * Math.sin(rotation);
+		     	let z = radius * Math.cos(rotation);
+			    //let y = -radius;
+			    let y = 0.3;
+
+		      	geometry.vertices.push(new THREE.Vector3(x, y, z));
+
+		      	//Peak hinzufügen
+		      	/*radius = map(data[i].m1_peek, 0, 100, 0, 1).clamp(0, 0.7);
+		      	x = radius * Math.sin(rotation);
+		     	z = radius * Math.cos(rotation);
+
+		     	geometry.vertices.push(new THREE.Vector3(x, y, z));*/
+		     }
+		}
+	    
+	    var pointCloud = new THREE.Points(geometry, material);
+	    	//pointCloud.rotation.y = Math.PI;
+	    scene.add(pointCloud); 
+	}
+
+
+	function addTemperature()
+	{
+		let material = new THREE.LineBasicMaterial( 
+			{ 	
+				color: 0xffc857, 
+				opacity: 0.5, 
+				linewidth: 0.1
+			});
+
+		let geometry = new THREE.Geometry();
+
+		for (var i = 0; i < 717; i ++)
+		{
+			if(i < data.length)
+			{
+				//let radius = map(Math.min(Math.max(data[i].m1_tmp, 20), 35), 20, 35, 0, 0.5);
+				let radius = map(data[i].m1_tmp, 0, 80, 0, 0.8);
+				let rotation = map(i, 0, 717, 0, -Math.PI*2)
+
+				let x = radius * Math.sin(rotation);
+		     	let z = radius * Math.cos(rotation);
+			    let y = 0.2;
+
+				geometry.vertices.push(
+					new THREE.Vector3( x, y, z )
+				);
+			}
+
+		}
+
+		var line = new THREE.Line( geometry, material );
+			//line.rotation.x = Math.PI;
+		scene.add( line );
+	}
+
+	function addBrightness()
+	{
+		let material = new THREE.LineBasicMaterial( 
+			{ 	
+				color: 0xffffff, 
+				opacity: 0.4, 
+				linewidth: 0.1
+			});
+
+		let geometry = new THREE.Geometry();
+
+		for (var i = 0; i < 717; i ++)
+		{
+			if(i < data.length)
+			{
+				let radius = map(data[i].m1_btn, 0, 1024, 0, 0.8);
+				let rotation = map(i, 0, 717, 0, -Math.PI*2)
+
+				let x = radius * Math.sin(rotation);
+		     	let z = radius * Math.cos(rotation);
+			    let y = 0.2;
+
+				geometry.vertices.push(
+					new THREE.Vector3( x, y, z )
+				);
+			}
+		}
+
+		var line = new THREE.Line( geometry, material );
+			//line.rotation.x = Math.PI;
+		scene.add( line );
+	}
+
+	function addDaytime()
+	{
+		let daytime = calcDaytime( sonnenaufgang, sonnenuntergang );
+
+		let ringStart = calcDaystart( sonnenaufgang );
+		let ringEnd = map( daytime, 0, 1440, 0, Math.PI * 2);
+
+		let geometry = new THREE.RingGeometry( 0.1, 0.9, 100, 1, Math.PI / 2 + ringStart, ringEnd );
+		let material = new THREE.MeshBasicMaterial( 
+			{ 
+				color: 0x000000, 
+				opacity: 0.7,
+				side: THREE.DoubleSide
+				//wireframe: true
+			});
+		let mesh = new THREE.Mesh( geometry, material );
+			mesh.rotation.x = Math.PI / 2;
+			mesh.position.y = 0.1;
+		scene.add( mesh );
+	}
+
+	// Linien für Stunden hinzufügen
+	function addLines( anzahl )
+	{
+		let material = new THREE.LineBasicMaterial( 
+			{ 	
+				color: 0x00ff00, 
+				opacity: 0.5, 
+				linewidth: 0.1
+			});
+
+		for (var i = 0; i < anzahl; i ++)
+		{
+			var geometry = new THREE.Geometry();
+
+			geometry.vertices.push(new THREE.Vector3( 0, 0, 0 ));
+
+			let radius = 1;
+			let rotation = map(i, 0, anzahl, 0, -Math.PI*2)
+			
+			let x = radius * Math.sin(rotation);
+	     	let z = radius * Math.cos(rotation);
+		    let y = 0.2;
+
+			geometry.vertices.push(new THREE.Vector3(x, y, z));
+
+			var line = new THREE.Line(geometry, material);
+
+			scene.add( line );
+		}
+	}
+	
+</script>
+</body>
